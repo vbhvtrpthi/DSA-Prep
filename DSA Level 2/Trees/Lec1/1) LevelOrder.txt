@@ -1,0 +1,51 @@
+//https://leetcode.com/problems/binary-tree-level-order-traversal/
+
+public static void levelOrder(Node node) {
+    // write your code here
+    //rpa
+    ArrayDeque<Node> queue = new ArrayDeque<>();
+    queue.add(node);
+
+    while(queue.size() > 0){
+        Node temp = queue.remove();
+        System.out.print(temp.data + " ");
+
+        if(temp.left != null){
+            queue.add(temp.left);
+        }
+
+        if(temp.right != null){
+            queue.add(temp.right);
+        }
+    }
+  }
+
+  public static void levelOrderLW(Node node) {
+    // write your code here
+
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(node);
+    queue.add(null);
+
+    while(queue.size() > 0){
+        Node temp = queue.remove();
+
+        if(temp != null){
+          System.out.print(temp.data + " ");
+
+          if(temp.left != null){
+              queue.add(temp.left);
+          }
+
+          if(temp.right != null){
+              queue.add(temp.right);
+          }
+        } else {
+          System.out.println();
+
+          if(queue.size() > 0){
+            queue.add(null);
+          }
+        }
+    }
+  }

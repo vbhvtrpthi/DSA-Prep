@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/squares-of-a-sorted-array/
+
+//o(n)
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int[] res = new int[nums.length];// for storig res
+        //Two pointer
+        int l = 0;
+        int r = nums.length - 1;
+        int k = res.length - 1; // for filling from last idx
+
+        while(k >= 0){
+            if(Math.abs(nums[l]) > Math.abs(nums[r])){
+                res[k] = nums[l] * nums[l];
+                l++;
+            } else {
+                res[k] = nums[r] * nums[r];
+                r--;
+            }
+            
+            k--;
+        }
+        
+        return res;
+    }
+}
+

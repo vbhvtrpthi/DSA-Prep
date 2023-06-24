@@ -1,0 +1,10 @@
+n = 1421845308230;
+char[] arr = (n + "").toCharArray(); //for converting integer into char array
+
+String res = new String(arr);//converting char array back to string
+long val = Long.parseLong(res);//now parsing our string into long val
+
+int i = Integer.parseInt(res); //for parsing string into integer value
+
+
+

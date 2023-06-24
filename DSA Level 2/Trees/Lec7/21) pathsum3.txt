@@ -1,0 +1,62 @@
+//https://leetcode.com/problems/path-sum-iii/submissions/ T.C O(n) SC 0(n)
+
+//Prerequisite -  subarray Sum equals k
+//https://leetcode.com/problems/subarray-sum-equals-k/
+
+class Solution {
+
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        map.put(0, 1); //0 prefix sum frquency is 1
+        int cnt = 0;
+        int ps = 0; //prefix sum
+
+        for (int val : nums) {
+            ps += val;
+
+            if (map.containsKey(ps - k)) {
+                cnt += map.get(ps - k);
+            }
+
+            if (map.containsKey(ps)) {
+                map.put(ps, map.get(ps) + 1);
+            } else {
+                map.put(ps, 1);
+            }
+        }
+
+        return cnt;
+    }
+}
+
+//path sum-iii
+class Solution {
+
+    int cnt = 0;
+    public int pathSum(TreeNode root, int targetSum) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        if (root == null) return 0;
+
+        pathSumHelper(root, targetSum, map, root.val);
+        return cnt;
+    }
+
+    public void pathSumHelper(TreeNode node, int tar, HashMap<Integer, Integer> map, int ps) {
+        if (map.containsKey(ps - tar)) cnt += map.get(ps - tar);
+
+        if (map.containsKey(ps)) {
+            map.put(ps, map.get(ps) + 1);
+        } else {
+            map.put(ps, 1);
+        }
+
+        if (node.left != null) pathSumHelper(node.left, tar, map, ps + node.left.val);
+        if (node.right != null) pathSumHelper(node.right, tar, map, ps + node.right.val);
+
+        if (map.containsKey(ps)) {
+            map.put(ps, map.get(ps) - 1);
+        }
+    }
+}

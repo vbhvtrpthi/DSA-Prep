@@ -1,0 +1,24 @@
+// https://leetcode.com/problems/majority-element/
+
+//Boye Moore's vooting algo
+//qns mey diya me hai means ek tho jayda hoga he, me and non-me key set me
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        Integer me = null;
+        
+        for(int i = 0; i < nums.length; i++){
+            //previous val tak count 0 tha mean koi me ni, so isko me banao or count 1 kro
+            if(count == 0){
+                me = nums[i];
+                count = 1;
+            } else if(nums[i] == me){//when count is not 0, abhi koi me consider ho raha hai
+                count++;//element same as abhi tk ke me se so incrment count
+            } else {
+                count--; //decrement count  if differenet
+            }
+        }
+             
+        return me; //return the me
+    }
+}

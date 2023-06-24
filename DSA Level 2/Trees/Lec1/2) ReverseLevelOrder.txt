@@ -1,0 +1,33 @@
+//https://practice.geeksforgeeks.org/problems/reverse-level-order-traversal/1
+//https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
+
+ public ArrayList<Integer> reverseLevelOrder(Node node) 
+    {
+        ArrayList<Integer> ret = new ArrayList<>();
+        // code here
+        
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        
+ 
+        
+        while(queue.size() > 0){
+            Node temp = queue.remove();
+            
+            ret.add(temp.data);
+            if(temp.right != null){
+                queue.add(temp.right);
+            }
+            
+            if(temp.left != null){
+                queue.add(temp.left);
+            }
+        
+        }
+
+        Collections.reverse(ret);
+        
+        
+        return ret;
+    }
+}      

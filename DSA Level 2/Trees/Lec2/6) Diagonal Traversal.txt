@@ -1,0 +1,88 @@
+//https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1
+
+//using queue and hashmap
+class Tree
+{
+    class Pair{
+        Node node;
+        int idx;
+        
+        Pair(Node node, int idx){
+            this.node = node;
+            this.idx = idx;
+        }
+    }
+     public ArrayList<Integer> diagonal(Node root)
+      {
+           //add your code here.
+           
+           Queue<Pair> q = new LinkedList<>();
+           HashMap<Integer, ArrayList<Pair>> map = new HashMap<>();
+           q.add(new Pair(root, 0));
+           
+           while(q.size() > 0){
+               Pair temp = q.remove();
+               
+               if(map.containsKey(temp.idx) == false){
+                   map.put(temp.idx, new ArrayList<>());
+                   map.get(temp.idx).add(temp);
+               }else{
+                   map.get(temp.idx).add(temp);
+               }
+               
+               if(temp.node.left != null)
+                  q.add(new Pair(temp.node.left, temp.idx + 1));
+                
+               if(temp.node.right != null)
+                 q.add(new Pair(temp.node.right, temp.idx));
+           }
+         
+         ArrayList<Integer> res = new ArrayList<>();
+         int idx = 0;
+         while(idx < map.size()){
+             ArrayList<Pair> pairs = map.get(idx);
+             for(Pair p: pairs){
+                 res.add(p.node.data);
+             }
+             idx++;
+         }
+         
+         return res;
+            
+      }
+}
+
+//Approach 2 using recursion
+class Tree
+{   
+    static void traversal(Node root, int diag, HashMap<Integer, ArrayList<Integer>> map){
+        if(root == null)  return;
+        
+        if(map.containsKey(diag) == false){
+            map.put(diag, new ArrayList<>());
+        }
+        map.get(diag).add(root.data);
+        
+        traversal(root.left, diag + 1, map);
+        traversal(root.right, diag, map);
+    }
+     public ArrayList<Integer> diagonal(Node root)
+      {
+           //add your code here.
+           HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+           traversal(root, 0, map);
+           
+           int idx = 0;
+           ArrayList<Integer> res = new ArrayList<>();
+           while(idx < map.size()){
+               ArrayList<Integer> vals = map.get(idx);
+               for(int val : vals){
+                 res.add(val);
+               }
+               idx++;
+           }
+           
+           return res;
+      }
+}
+ 

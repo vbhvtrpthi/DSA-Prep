@@ -1,0 +1,36 @@
+//https://practice.geeksforgeeks.org/problems/inorder-successor-in-bst/1
+
+class Solution {
+
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    public Node inorderSuccessor(Node root, Node x) {
+        //add code here.
+        Node curr = root;
+        boolean flag = false;
+        while (curr != null) {
+            if (curr.left == null) {
+                if (flag == true) break;
+                if (curr == x) {
+                    falg = true;
+                }
+                curr = curr.right;
+            } else {
+                Node iop = curr.left;
+                while (iop.right != null && iop.right != curr) {
+                    iop = iop.right;
+                }
+
+                if (iop.right == null) {
+                    iop.right = curr;
+                    curr = curr.left;
+                } else {
+                    iop.right = null;
+                    if (flag == true) break;
+                    if (curr == x) flag = true;
+                    curr = curr.right;
+                }
+            }
+        }
+        return curr;
+    }
+}

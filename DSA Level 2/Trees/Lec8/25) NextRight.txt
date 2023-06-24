@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+//next right pointer - T O(n) SO(1)
+
+class Solution {
+
+    public Node connect(Node root) {
+        Node node = root;
+        while (node != null) {
+            connectHelper(node);
+            node = node.left;
+        }
+
+        return root;
+    }
+
+    public void connectHelper(Node node) {
+        while (node != null) {
+            //if conditions for the base case -> leaf nodes & when there is no next to the node
+            if (node.left != null) {
+                node.left.next = node.right;
+            }
+            if (node.next != null && node.right != null) {
+                node.right.next = node.next.left;
+            }
+
+            node = node.next;
+        }
+    }
+}

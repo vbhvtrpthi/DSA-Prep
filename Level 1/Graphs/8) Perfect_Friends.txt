@@ -1,0 +1,82 @@
+//https://nados.io/question/perfect-friends?zen=true
+
+Sample Input
+7
+5
+0 1
+2 3
+4 5
+5 6
+4 6
+
+//Time Complexity:
+//O(V+E)
+//Because the DFS approach has been used.
+
+public class Main {
+
+    static class Edge {
+        int ver;
+        int nbr;
+
+        Edge(int ver, int nbr) {
+            this.ver = ver;
+            this.nbr = nbr;
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine()); // vertix
+        int k = Integer.parseInt(br.readLine()); // edged
+
+        ArrayList<Edge>[] graph = new ArrayList[n]; // creating graph of size of vertex
+
+        for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
+
+        for (int i = 0; i < k; i++) {
+            String[] parts = br.readLine().split(" ");
+            int v1 = Integer.parseInt(parts[0]);
+            int v2 = Integer.parseInt(parts[1]);
+
+            graph[v1].add(new Edge(v1, v2));
+            graph[v2].add(new Edge(v2, v1));
+        }
+
+        ArrayList<ArrayList<Integer>> comps = new ArrayList<>(); // comps array for storing connected components
+
+        boolean[] visited = new boolean[n];
+
+        //filling the comps array for getting the connected graph
+        for (int v = 0; v < n; v++) {
+            if (!visited[v]) {
+                ArrayList<Integer> comp = new ArrayList<>();
+                drawTreeAndCreateComp(graph, v, comp, visited);
+                comps.add(comp);
+            }
+        }
+
+        int pairs = 0;
+        //total comps pair that can be formed
+        for (int i = 0; i < comps.size(); i++) {
+            for (int j = i + 1; j < comps.size(); j++) {
+                int count = comps.get(i).size() * comps.get(j).size();
+                pairs += count;
+            }
+        }
+
+        System.out.println(pairs);
+    }
+
+    //For getting the connected graph in comp arraylist
+    public static void drawTreeAndCreateComp(ArrayList<Edge>[] graph, int src, ArrayList<Integer> comp, boolean[] visited) {
+        visited[src] = true;
+        comp.add(src);
+        for (Edge edge : graph[src]) {
+            if (!visited[edge.nbr]) {
+                drawTreeAndCreateComp(graph, edge.nbr, comp, visited);
+            }
+        }
+    }
+}

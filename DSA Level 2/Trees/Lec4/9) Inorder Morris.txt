@@ -1,0 +1,35 @@
+//https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/
+//morris inorder traversal
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> retVal = new ArrayList<>();
+        
+        TreeNode curr = root;
+        
+        while(curr != null){
+            if(curr.left == null){
+                retVal.add(curr.val);
+                curr = curr.right;
+            } else {
+                TreeNode iop = curr.left;
+                while(iop.right != null && iop.right != curr){
+                    iop = iop.right;
+                }
+                
+                //left is not processed
+                if(iop.right == null){
+                    iop.right = curr; // making the thread
+                    curr = curr.left;
+                } else {
+                //left is processed
+                    iop.right = null;
+                    retVal.add(curr.val);
+                    curr = curr.right;
+                }
+            }
+        }
+        
+        return retVal;
+    }
+}

@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/container-with-most-water/
+
+//0(n^2)
+class Solution {
+    public int maxArea(int[] height) {
+        
+        int max = Integer.MIN_VALUE;
+        
+        for(int i = 0; i < height.length; i++){
+            int waterCap = 0;
+            for(int j = i +  1; j < height.length; j++){
+                if(height[i] > height[j])
+                     waterCap = height[j] * (j  - i);
+                else
+                     waterCap = height[i] * (j - i);
+                    
+              if(waterCap > max)
+                 max = waterCap;
+                
+            }
+        }
+        
+        return max;
+    }
+}
+
+//0(n)
+class Solution {
+    public int maxArea(int[] height) {
+        int res = 0;
+        //two pointer
+        int l = 0;
+        int r = height.length - 1;
+        while(l < r){
+            int area = Math.min(height[l], height[r]) * (r - l);
+            res = Math.max(res, area);//for calculating overall max
+            
+            if(height[l] < height[r]){
+                l++;
+            } else {
+                r--;
+            }
+        }
+        
+        return res;
+    }
+}

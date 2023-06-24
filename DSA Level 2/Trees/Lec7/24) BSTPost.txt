@@ -1,0 +1,30 @@
+//https://practice.geeksforgeeks.org/problems/construct-bst-from-post-order/1
+
+//BST from post
+
+class GFG {
+    static int idx = 0;
+
+    public static Node constructTree(int post[], int n) {
+        idx = post.length - 1;
+        return construct(post, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public static Node construct(int[] post, int lo, int hi) {
+        if (idx == -1) {
+            return null;
+            
+        } else if (post[idx] > lo && post[idx] < hi) {
+            Node node = new Node(post[idx]);
+            // node.data = post[idx];
+            idx--;
+
+            node.right = construct(post, node.data, hi);
+            node.left = construct(post, lo, node.data);
+
+            return node;
+        } else {
+            return null;
+        }
+    }
+}

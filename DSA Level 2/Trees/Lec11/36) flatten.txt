@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/flatten-binary-tree-to-linked-list/ 
+
+//flatten binary tree to ll  tc 0(n), sc 0(1)
+//using reverse post order
+
+class Solution {
+    Node prev = null;
+
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        flatten(root.right);
+        flatten(root.left);
+
+        root.left = null;
+        root.right = prev; 
+        prev = root;
+    }
+}
+
+//using preorder
+class Solution {
+    Node prev = null;
+
+    public void flatten(TreeNode root) {
+        if(root == null){
+            return;
+        }
+
+        Node ol = root.left;
+        Node or = root.right;
+
+        if(prev != null){
+            prev.left = null;
+            prev.right = root;
+        }
+        prev = root;
+
+        flatten(ol);
+        flatten(or);
+    }
+}
