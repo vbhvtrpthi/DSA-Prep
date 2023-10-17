@@ -1,0 +1,605 @@
+//https://www.geeksforgeeks.org/c-program-multiply-two-matrices/
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+
+	static int R1 = 2; // number of rows in Matrix-1
+	static int C1 = 3; // number of columns in Matrix-1
+	static int R2 = 3; // number of rows in Matrix-2
+	static int C2 = 2; // number of columns in Matrix-2
+
+	// This function multiplies mat1[][]
+	// and mat2[][], and stores the result
+	// in res[][]
+	static void mulMat(int[][] mat1, int[][] mat2)
+	{
+		// To store result
+		int[][] rslt = new int[R1][C2];
+		System.out.println(
+			"Multiplication of given two matrices is:");
+		int i, j, k;
+
+		for (i = 0; i < R1; i++) {
+			for (j = 0; j < C2; j++) {
+				rslt[i][j] = 0;
+				for (k = 0; k < R2; k++)
+					rslt[i][j] += mat1[i][k] * mat2[k][j];
+				System.out.print(rslt[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
+
+	// Driver code
+	public static void main(String[] args)
+	{
+		int[][] mat1 = { { 1, 1, 2 },
+						{ 2, 2, 3 } };
+
+		int[][] mat2 = { { 1, 1 },
+						{ 2, 2 },
+          {3,3} };
+
+
+		if (C1 != R2) {
+			System.out.println(
+				"The number of columns in Matrix-1 must be equal to the number of rows in Matrix-2");
+			System.out.println(
+				"Please update the global variables according to your array dimension");
+		}
+		else {
+			
+			// Function call
+			mulMat(mat1, mat2);
+		}
+	}
+}
+
+// Time Complexity:
+// O(n3)
+// SPACE COMPLEXITY:
+// O(n2)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//The State Of Wakanda -1
+// 2D array display ->  
+ ⬇️ -> ⬆️ ->⬇️ 
+
+import java.util.*;
+
+public class Test {
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int m = scn.nextInt();
+    int[][] arr = new int[n][m];
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        arr[i][j] = scn.nextInt();
+      }
+    }
+
+    for(int j = 0; j < arr[0].length; j++){
+        for(int i = 0; i < arr.length; i++){
+           if(j % 2 == 0){
+              System.out.println(arr[i][j]);
+           }else{
+            System.out.println(arr[arr.length - i - 1][j]);
+           }
+        }
+    }
+    scn.close();
+  }
+}
+
+// tc - O(n^2)
+// sc - O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// Spiral traversal
+//https://leetcode.com/problems/spiral-matrix/description/
+
+import java.util.*;
+
+public class Test {
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int m = scn.nextInt();
+    int[][] arr = new int[n][m];
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        arr[i][j] = scn.nextInt();
+      }
+    }
+    int minr = 0;
+    int minc = 0;
+    int maxr = arr.length - 1;
+    int maxc = arr[0].length - 1;
+    int cnt = 0;
+    int tne = arr.length * arr[0].length;
+
+    while(cnt < tne){
+        //left wall
+        for(int i = minr,j=minc; i <= maxr && cnt < tne; i++){
+             System.out.print(arr[i][j] + " ");
+             cnt++;
+        }
+        System.out.println();
+        minc++;
+        //bottom wall
+        for(int i = maxr, j = minc; j <= maxc && cnt < tne; j++){
+            System.out.print(arr[i][j] + " ");
+            cnt++;
+
+        }
+        System.out.println();
+        maxr--;
+        //right wall
+        for(int i = maxr, j = maxc; i >= minr && cnt < tne; i--){
+            System.out.print(arr[i][j] + " ");
+            cnt++;
+
+        }
+        System.out.println();
+        maxc--;
+        //top wall
+        for(int i= minr, j = maxc; j  >= minc && cnt < tne; j--){
+            System.out.print(arr[i][j] + " ");
+            cnt++;
+
+        }
+        System.out.println();
+        minr++;
+    }
+    scn.close();
+  }
+}
+
+// tc- O(n^2)
+// sc - O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// https://www.geeksforgeeks.org/exit-point-in-a-binary-matrix/
+
+
+import java.util.*;
+class Test {
+
+// Function to find the exit
+// point in a given matrix
+public static int[] FindExitPoint(int[][] matrix)
+{
+	// initialization of row, column
+	int i = 0, j = 0;
+	int dir = 0;
+
+	while (true) {
+	dir = (dir + matrix[i][j]) % 4;
+
+	// If a cell is traversed
+	// then mark it has 0
+	if (matrix[i][j] == 1) {
+		matrix[i][j] = 0;
+	}
+
+	// Right direction
+	if (dir == 0) {
+		j++;
+	}
+	// Down direction
+	else if (dir == 1) {
+		i++;
+	}
+	// Left direction
+	else if (dir == 2) {
+		j--;
+	}
+	// Up direction
+	else if (dir == 3) {
+		i--;
+	}
+
+	// decrement either the row or col
+	// since it crossed the boundary
+	if (i < 0) {
+		i++;
+		break;
+	}
+	else if (i == matrix.length) {
+		i--;
+		break;
+	}
+	else if (j < 0) {
+		j++;
+		break;
+	}
+	else if (j == matrix[0].length) {
+		j--;
+		break;
+	}
+	}
+
+	// return row and column
+	int[] v = new int[] { i, j };
+	return v;
+}
+
+// Driver Code
+public static void main(String[] args)
+{
+
+	int[][] matrix = new int[][] { { 0, 1, 0 },
+								{ 0, 1, 1 },
+								{ 0, 0, 0 } };
+	int[] exitPoints = FindExitPoint(matrix);
+
+	System.out.println(exitPoints[0] + " "
+					+ exitPoints[1]);
+
+}
+}
+
+// Time Complexity: O(NxM) where N is the number of rows and M is the number of columns.
+// Auxiliary Space: O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Transpose of a matrix - row ↔️ columns
+
+//https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/ - Time complexity: O(N2), Auxiliary Space: O(1)
+//RQ - 
+
+// Java Program to find
+// transpose of a matrix
+
+class GFG {
+	static final int N = 4;
+
+	// Finds transpose of A[][] in-place
+	static void transpose(int A[][])
+	{
+		for (int i = 0; i < N; i++)
+			for (int j = i + 1; j < N; j++) {
+				int temp = A[i][j];
+				A[i][j] = A[j][i];
+				A[j][i] = temp;
+			}
+	}
+
+	// Driver code
+	public static void main(String[] args)
+	{
+		int A[][] = { { 1, 1, 1, 1 },
+					{ 2, 2, 2, 2 },
+					{ 3, 3, 3, 3 },
+					{ 4, 4, 4, 4 } };
+
+		transpose(A);
+
+		System.out.print("Modified matrix is \n");
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++)
+				System.out.print(A[i][j] + " ");
+			System.out.print("\n");
+		}
+	}
+}
+
+// RQ - https://leetcode.com/problems/rotate-image/description/ 90 deg clockwise (transpose + reverse each row)
+// RQ - https://practice.geeksforgeeks.org/problems/rotate-a-2d-array-without-using-extra-space1004/1? 90 deg Anticlockwise (transpose + reverse each col)
+
+
+//User function Template for Java
+
+class Solution {
+  void rotateMatrix(int arr[][], int n) {
+    // code here
+    transpose(arr, n);
+
+    for (int col = 0; col < n; col++) {
+
+      int row_first = 0;
+      int row_last = n - 1;
+      
+      while (row_first < row_last) {
+        int temp = arr[row_first][col];
+        arr[row_first++][col] = arr[row_last][col];
+        arr[row_last--][col] = temp;
+      }
+    }
+
+  }
+
+  public static void transpose(int[][] arr, int n) {
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        int temp = arr[i][j];
+        arr[i][j] = arr[j][i];
+        arr[j][i] = temp;
+      }
+    }
+  }
+
+}
+
+//   tc - O(n^2)
+//   sc - O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Ring Rotate
+
+//https://www.pepcoding.com/resources/online-java-foundation/2d-arrays/ring-rotate-official/ojquestion
+// RQ - https://leetcode.com/problems/cyclically-rotating-a-grid/description/ tc - O(nm) sc - O(1)
+
+
+// Time Complexity:
+// O(n+m)
+
+// SPACE COMPLEXITY:
+// O(n+m)
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int m = scn.nextInt();
+
+    int[][] arr = new int[n][m];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        arr[i][j] = scn.nextInt();
+      }
+    }
+
+    int s = scn.nextInt();
+    int r = scn.nextInt();
+
+    rotateShell(arr, s, r);
+    display(arr);
+  }
+
+  public static void rotateShell(int[][] arr, int s, int r) {
+    int[] oned = fillOnedFromShell(arr, s);
+    rotate(oned, r);
+    fillShellFromOned(arr, s, oned);
+  }
+
+  public static void rotate(int[] oned, int r) {
+    r = r % oned.length;
+    if (r < 0) {
+      r += oned.length;
+    }
+
+    reverse(oned, 0, oned.length - r - 1);
+    reverse(oned, oned.length - r, oned.length - 1);
+    reverse(oned, 0, oned.length - 1);
+  }
+
+  public static void reverse(int[] arr, int i, int j) {
+    while (i < j) {
+      int temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+      i++;
+      j--;
+    }
+  }
+
+  public static int[] fillOnedFromShell(int[][] arr, int s) {
+    int minr = s - 1;
+    int minc = s - 1;
+    int maxr = arr.length - s;
+    int maxc = arr[0].length - s;
+    int size = 2 * (maxr - minr) + 2 * (maxc - minc);
+    int[] oned = new int[size];
+
+    int index = 0;
+    for (int i = minr, j = minc; i <= maxr; i++) {
+      oned[index] = arr[i][j];
+      index++;
+    }
+
+    for (int i = maxr, j = minc + 1; j <= maxc; j++) {
+      oned[index] = arr[i][j];
+      index++;
+    }
+
+    for (int i = maxr - 1, j = maxc; i >= minr; i--) {
+      oned[index] = arr[i][j];
+      index++;
+    }
+
+    for (int i = minr, j = maxc - 1; j > minc; j--) {
+      oned[index] = arr[i][j];
+      index++;
+    }
+
+    return oned;
+  }
+
+  public static void fillShellFromOned(int[][] arr, int s, int[] oned) {
+    int minr = s - 1;
+    int minc = s - 1;
+    int maxr = arr.length - s;
+    int maxc = arr[0].length - s;
+
+    int index = 0;
+    for (int i = minr, j = minc; i <= maxr; i++) {
+      arr[i][j] = oned[index];
+      index++;
+    }
+
+    for (int i = maxr, j = minc + 1; j <= maxc; j++) {
+      arr[i][j] = oned[index];
+      index++;
+    }
+
+    for (int i = maxr - 1, j = maxc; i >= minr; i--) {
+      arr[i][j] = oned[index];
+      index++;
+    }
+
+    for (int i = minr, j = maxc - 1; j > minc; j--) {
+      arr[i][j] = oned[index];
+      index++;
+    }
+  }
+
+  public static void display(int[][] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      for (int j = 0; j < arr[0].length; j++) {
+        System.out.print(arr[i][j] + " ");
+      }
+      System.out.println();
+    }
+  }
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//https://www.pepcoding.com/resources/online-java-foundation/2d-arrays/diagonal-traversal-official/ojquestion tc - O(n^2) , sc- O(1)
+//RA - https://www.geeksforgeeks.org/program-print-lower-triangular-upper-triangular-matrix-array/
+
+import java.util.Scanner;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+     Scanner scn = new Scanner(System.in);
+
+    int n = scn.nextInt();
+
+    int[][] arr = new int[n][n];
+
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        arr[i][j] = scn.nextInt();
+      }
+    }
+
+    for(int gap = 0; gap < n; gap++){
+      for(int i = 0, j = gap; j < n; i++, j++){
+         System.out.print(arr[i][j] + " ");
+      }
+      System.out.println();
+    }
+    scn.close();
+  }
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//https://www.geeksforgeeks.org/saddle-point-matrix/ 
+
+//Time Complexity: O(n*n)
+// Auxiliary Space: O(1)
+
+//Can there be more than one Saddle Points in a Matrix? No, prove it by contradiction method
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+
+    int arr[][] = { { 1, 2, 3 },
+        { 4, 5, 6 },
+        { 7, 8, 9 } };
+    int n = 3;
+
+    int colno = 0, min = 0;
+
+    //minimum element of the current row and store the column index of the minimum element.
+    for (int i = 0; i < n; i++) { // rows
+
+      min = arr[i][0];
+      for (int j = 0; j < n; j++) { // columns
+        if (min > arr[i][j]) {
+          min = arr[i][j];
+          colno = j;
+        }
+        
+      }
+      // Check if the row minimum element is also maximum in its column. We use the stored column index here.
+      boolean potentialAns = true;
+      for (int r = 0; r < n; r++) {
+        if (min < arr[r][colno]) {
+          potentialAns = false;
+          break;
+        }
+      }
+
+      if (potentialAns == true) {
+        System.out.println(min);
+        return;
+      }
+    }
+
+    System.out.print("Invalid Input");
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+// https://www.geeksforgeeks.org/search-in-row-wise-and-column-wise-sorted-matrix/
+
+// Time Complexity: O(N)
+//Auxiliary Space: O(1)
+
+// JAVA Code for Search in a row wise and
+// column wise sorted matrix
+
+class Main {
+
+  /*
+   * Searches the element x in mat[][]. If the
+   * element is found, then prints its position
+   * and returns true, otherwise prints "not found"
+   * and returns false
+   */
+  private static void search(int[][] mat, int n, int x) {
+
+    // set indexes for top right
+    int i = 0, j = n - 1;
+    // element
+
+    while (i < n && j >= 0) {
+      if (mat[i][j] == x) {
+        System.out.print("Element found at " + i
+            + " " + j);
+        return;
+      }
+      if (mat[i][j] > x)
+        j--;
+      else // if mat[i][j] < x
+        i++;
+    }
+
+    System.out.print("n Element not found");
+    return; // if ( i==n || j== -1 )
+  }
+
+  // Driver code
+  public static void main(String[] args) {
+    int mat[][] = { { 10, 20, 30, 40 },
+        { 15, 25, 35, 45 },
+        { 27, 29, 37, 48 },
+        { 32, 33, 39, 50 } };
+
+    // Function call
+    search(mat, 4, 29);
+  }
+}

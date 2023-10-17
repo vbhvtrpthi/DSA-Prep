@@ -1,0 +1,482 @@
+//Bar Chart
+
+//1. You are given a number n, representing the size of array a.
+// 2. You are given n numbers, representing elements of array a.
+// 3. You are required to print a bar chart representing value of arr a.
+
+// Sample Input
+// 5
+// 3
+// 1
+// 0
+// 7
+// 5
+
+// Sample Output
+// 			  *	
+// 				*
+// 				*	*
+// 				*	*
+// *			*	*	
+// *			*	*	
+// *	*		*	*	
+
+
+import java.util.Scanner;
+public class sample {
+
+    public static void main(String[] args) {
+
+      Scanner scn = new Scanner(System.in);
+      int totalBuilding = scn.nextInt();
+      int[] building = new int[totalBuilding];
+
+      for(int i = 0; i < building.length; i++){
+        building[i] = scn.nextInt();
+      }
+
+      int maxBuilding = maxBuildingSize(building);
+
+      for(int floor = maxBuilding; floor >= 1; floor--){
+        for (int building1 : building){
+             if(building1 >= floor){
+              System.out.print("* ");
+             }else{
+              System.out.print("  ");
+             }
+        }
+        System.out.println();
+      }
+
+      scn.close();
+    }
+
+    public static int maxBuildingSize(int[] building){
+      int max = Integer.MIN_VALUE;
+      for(int i = 0; i < building.length; i++){
+        if(max < building[i])
+         max = building[i];
+      }
+      return max;
+    }
+}
+
+// Time Complexity:
+// O(n2)
+
+// SPACE COMPLEXITY:
+// O(n)
+
+
+//Inverted Bar chart
+
+//Sample Output
+
+// *	*		*	*	
+// *			*	*	
+// *			*	*	
+// 				*	*
+// 				*	*
+// 			  *		
+// 			  *	
+
+import java.io.*;
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
+            max = Math.max(max, arr[i]);
+        }
+
+        for (int i = 0; i < max; i++) {
+            for (int building : arr) {
+                if (i < building) {
+                    System.out.print("*\t");
+                } else {
+                    System.out.print("\t");
+                }
+            }
+            System.out.println();
+        }
+
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// Sum Of Two Arrays
+
+// 1. You are given a number n1, representing the size of array a1.
+// 2. You are given n1 numbers, representing elements of array a1.
+// 3. You are given a number n2, representing the size of array a2.
+// 4. You are given n2 numbers, representing elements of array a2.
+// 5. The two arrays represent digits of two numbers.
+// 6. You are required to add the numbers represented by two arrays and print the
+// arrays.
+
+
+// import java.util.Scanner;
+public class sample {
+
+    public static void main(String[] args) {
+      int n1 = 5;
+      int[] a1 = new int[]{ 9, 3, 4, 6, 8 };
+      int n2 = 4;
+      int[] a2 = new int[]{ 1, 9, 8, 8 };
+  
+      int[] sum = new int[n1 > n2 ? n1 : n2];
+
+      int i = n1 - 1;
+      int j = n2 - 1;
+      int k = sum.length - 1;
+      int c = 0;
+
+      while (i >= 0 || j >= 0) {
+        int d = c;
+  
+        if (i >= 0)
+          d += a1[i];
+  
+        if (j >= 0)
+          d += a2[j];
+  
+        c = d / 10;
+        d = d % 10;
+        sum[k] = d;
+  
+        i--;
+        j--;
+        k--;
+      }
+  
+      if (c > 0) {
+        System.out.println(c);
+      }
+      for (int val : sum) {
+        System.out.println(val);
+      }
+    }
+}
+// Time Complexity:
+// O(n)
+// SPACE COMPLEXITY:
+// O(n)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Rotate An Array
+
+// 1. You are given a number n, representing the size of array a.
+// 2. You are given n numbers, representing elements of array a.
+// 3. You are given a number k.
+// 4. Rotate the array a, k times to the right (for positive values of k), and to
+// the left for negative values of k.
+
+// Sample Input
+// 5
+// 1
+// 2
+// 3
+// 4
+// 5
+// 3
+
+// Sample Output
+// 3 4 5 1 2
+
+//https://leetcode.com/problems/rotate-array/
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class sample {
+
+    public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int n = Integer.parseInt(br.readLine());
+    int[] a = new int[n];
+
+    for(int i = 0; i < n; i++){
+       a[i] = Integer.parseInt(br.readLine());
+    }
+
+    int k = Integer.parseInt(br.readLine());
+
+    rotate(a, k);
+    display(a);
+    }
+
+    public static void rotate(int[] a, int k){
+      // write your code here
+
+      //Divide array into two parts
+      if(k > a.length){
+        k = k % a.length;
+      }
+
+      if(k < 0){
+        k = k + a.length;
+      }
+
+      int firstPartEndIdx = a.length - k - 1;
+      int secondPartStartIdx = firstPartEndIdx + 1;
+      
+      //Reverse first part
+      reverse(a,0,firstPartEndIdx);
+
+      //Reverse second part
+      reverse(a,secondPartStartIdx,a.length - 1);
+      
+      //reverse whole array
+      reverse(a,0, a.length - 1);
+      
+
+    }
+    public static void reverse(int[] a, int i, int j){
+      while(i < j){
+          int temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
+          i++;
+          j--;
+      }
+    }
+    public static void display(int[] a){
+      StringBuilder sb = new StringBuilder();
+  
+      for(int val: a){
+        sb.append(val + " ");
+      }
+      System.out.println(sb);
+    }
+  
+}
+
+// Time Complexity:
+// O(n)
+// This is because we have to traverse the array and its parts to reverse it. So, the time complexity for reversing the array and its parts will be O(n) + O(n) + O(n)=O(n).
+
+// SPACE COMPLEXITY:
+// O(1)
+
+// (as we have not used any extra space)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//A subarrays/substrings. is a slice of the contiguous memory locations of the array. We can have n * (n+1)/2 non-empty subarrays of an array. 
+//A subset/subsequence is nothing but any possible combination of the original array (or a set). We can have 2^(size of the array) i.e. 2^n subsets of an array
+
+//Subarray Problem
+
+
+public class sample {
+
+  static int arr[] = new int[] { 1, 2, 3, 4 };
+
+  public static void main(String[] args) {
+    System.out.println("All Non-empty Subarrays");
+    subArray(arr.length);
+  }
+  
+  // Prints all subarrays in arr[0..n-1]
+  static void subArray(int n) {
+    // Pick starting point
+    for (int i = 0; i < n; i++) {
+      // Pick ending point
+      for (int j = i; j < n; j++) {
+        // Print subarray between current starting
+        // and ending points
+        for (int k = i; k <= j; k++)
+          System.out.print(arr[k] + " ");
+
+        System.out.println();
+      }
+    }
+  }
+
+}
+// Time Complexity: 0(n^3)
+
+// Space Complexity: 0(1)
+
+
+//Subsequence / subset
+
+// A subsequence is a sequence that can be derived from another sequence by removing zero or more elements, without changing the order of the remaining elements. 
+// For the same example, there are 15 sub-sequences. They are (1), (2), (3), (4), (1,2), (1,3),(1,4), (2,3), (2,4), (3,4), (1,2,3), (1,2,4), (1,3,4), (2,3,4), (1,2,3,4).
+
+// More generally, we can say that for a sequence of size n, we can have (2^n-1) non-empty sub-sequences in total. 
+// A string example to differentiate: Consider strings “geeksforgeeks” and “gks”. “gks” is a subsequence of “geeksforgeeks” but not a substring. “geeks” is both a subsequence and subarray.
+
+// https://www.geeksforgeeks.org/power-set/
+
+public class sample {
+
+  public static void main(String[] args) {
+    char[] set = { 'a', 'b', 'c' };
+    printPowerSet(set, 3);
+  }
+
+  static void printPowerSet(char[] set, int set_size) {
+
+   //set_size of power set of a set  with set_size n is (2**n -1)
+   
+    long pow_set_size = (long) Math.pow(2, set_size);
+    int counter, j;
+    
+    //Run from counter 000..0 to 111..1
+    for (counter = 0; counter < pow_set_size; counter++) {
+      for (j = 0; j < set_size; j++) {
+
+        //Check if jth bit in the counter is set If set then print jth element from set
+        if ((counter & (1 << j)) > 0)
+          System.out.print(set[j]);
+      }
+
+      System.out.println();
+    }
+  }
+}
+// Time Complexity: O(n^2n)
+// Auxiliary Space: O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// Binary Search
+
+// https://www.geeksforgeeks.org/binary-search/
+
+public class sample {
+
+  public static void main(String[] args) {
+    int[]arr = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+    int data = 70;
+    int l = 0;
+    int h = arr.length - 1;
+
+    while (l <= h) {
+      int m = (l + h) / 2;
+      if (data > arr[m]) {
+        l = m + 1;
+      } else if (data < arr[m]) {
+        h = m - 1;
+      } else {
+        System.out.println(m);
+        return;
+      }
+    }
+    System.out.println(-1);
+  }
+
+}
+// Time Complexity:  O(log N)
+// Auxiliary Space: O(1)
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// https://www.geeksforgeeks.org/find-first-and-last-positions-of-an-element-in-a-sorted-array/
+//pp -  https://practice.geeksforgeeks.org/problems/find-first-and-last-occurrence-of-x0849/1?
+// RQ - // https://www.geeksforgeeks.org/count-number-of-occurrences-or-frequency-in-a-sorted-array/
+
+// Time Complexity: O(log n) 
+// Auxiliary Space: O(1) 
+
+import java.util.*;
+
+class Sample {
+
+  static int first(int arr[], int x, int n) {
+    int low = 0, high = n - 1, res = -1;
+
+    while (low <= high) {
+      // Normal Binary Search Logic
+      int mid = (low + high) / 2;
+
+      if (x > arr[mid])
+        low = mid + 1;
+      else if (x < arr[mid])
+        high = mid - 1;
+
+      else {
+        res = mid;
+        high = mid - 1;
+      }
+    }
+    return res;
+  }
+
+  static int last(int arr[], int x, int n) {
+    int low = 0, high = n - 1, res = -1;
+
+    while (low <= high) {
+      // Normal Binary Search Logic
+      int mid = (low + high) / 2;
+      
+      if (x > arr[mid])
+        low = mid + 1;
+      else if (x < arr[mid])
+        high = mid - 1;
+
+      else {
+        res = mid;
+        low = mid + 1;
+      }
+    }
+    return res;
+  }
+
+  // Driver program
+  public static void main(String[] args) {
+    int arr[] = { 1, 2, 2, 2, 2, 3, 4, 7, 8, 8 };
+    int n = arr.length;
+    int x = 8;
+    System.out.println("First Occurrence = "
+        + first(arr, x, n));
+    System.out.println("Last Occurrence = "
+        + last(arr, x, n));
+  }
+}
+
+
+
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Floor and ceil value
+// rp - Broken economy, https://practice.geeksforgeeks.org/problems/floor-in-a-sorted-array-1587115620/1?
+public class Test {
+  public static void main(String[] args) {
+      int[] arr = new int[] { 1, 5, 10, 15, 22, 33,33,33,40, 42, 55, 66 };
+      int x = 33;
+      int lo = 0;
+      int hi = arr.length - 1;
+
+      int floor = -1;
+      int ceil = -1;
+
+      while (lo <= hi) {
+          int mid = lo + (hi - lo) / 2;
+          if (x > arr[mid]) {
+              lo = mid + 1;
+              floor = arr[mid];
+
+          } else if (x < arr[mid]) {
+              hi = mid - 1;
+              ceil = arr[mid];
+          } else {
+              floor = ceil = arr[mid];
+              break;
+          }
+
+      }
+   System.out.println("Floor value "+ floor + " | ceil value " + ceil);
+  }
+}

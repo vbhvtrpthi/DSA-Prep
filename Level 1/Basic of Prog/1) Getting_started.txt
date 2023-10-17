@@ -1,0 +1,437 @@
+//1. You are given as input marks of a student.
+// 2. Display an appropriate message based on the following rules:
+//   	  2.1 for marks above 90, print excellent.
+//   	  2.2 for marks above 80 and less than equal to 90, print good.
+//   	  2.3 for marks above 70 and less than equal to 80, print fair.
+//   	  2.4 for marks above 60 and less than equal to 70, print meets expectations.
+//   	  2.5 for marks less than equal to 60, print below par.
+
+// Note -> Only change the code in area after - // code here
+
+import java.util.Scanner;
+
+public class gradingSystem {
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        if(n > 90){
+            System.out.println("excellent");
+        }else if(n > 80 && n <= 90){
+            System.out.println("good"); 
+        }else if(n > 70 && n <= 80){
+            System.out.println("fair");
+        }else if(n > 60 && n <= 70){
+            System.out.println("meets expectation");
+        }else{
+            System.out.println("below par");
+            }
+        scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// is Number Prime ?
+
+import java.util.Scanner;
+
+public class  isNumberPrime {
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int num = scn.nextInt();
+         
+        //O(N) O(1)
+        // for(int i = 2; i < num; i++){
+        //     if(num % i == 0){
+        //        System.out.println("Not prime");
+        //        return;
+        //     }
+        // }
+        // System.out.println("no is prime");
+        
+        //O(sqrt(n)) O(1)
+        for(int i = 2; i <= Math.sqrt(num); i++){
+            if(num % i == 0){
+               System.out.println("Not prime");
+               return;
+            }
+        }
+        scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Count Digits In A Number
+
+//Constraints 1 <= n < 10^9
+
+//65784383
+
+//Sample Output
+//8
+
+//tc - O(n), sc- O(1)
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        int digit = 0;
+        while (n != 0) {
+            n = n / 10;
+            digit++;
+        }
+
+        System.out.println(digit);
+
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//Print Digits Of A Number
+
+// Constraints
+// 1 <= n < 10^9
+// Sample Input
+// 65784383
+// Sample Output
+// 6
+// 5
+// 7
+// 8
+// 4
+// 3
+// 8
+// 3
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        int power = 1;
+        int temp = n;
+
+        //power will be 1 less than the no of digits.
+        while (temp >= 10) {
+            temp /= 10;
+            power *= 10;
+        }
+
+        temp = n;
+        while (power != 0) {
+            int digit = temp / power;
+            System.out.println(digit);
+
+            temp = temp % power;
+            power = power / 10;
+        }
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+//Reverse A Number
+
+//Constraints
+
+// 1 <= n < 10^9
+// Sample Input
+// 65784383
+
+// Sample Output
+// 3
+// 8
+// 3
+// 4
+// 8
+// 7
+// 5
+
+// keep printing n % 10, till n != 0
+
+import java.util.*;
+   
+   public class Main {
+   
+       public static void main(String[] args) {
+           Scanner scn = new Scanner(System.in);
+           int n = scn.nextInt();
+   
+           while(n != 0){
+               int digit = n % 10;
+               n = n / 10;
+   
+               System.out.println(digit);
+           }
+       }
+   }
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+//Inverse Of A Number
+
+// 1. You are given a number following certain constraints.
+// 2. The key constraint is if the number is 5 digits long, it'll contain all the digits from 1 to 5 without missing any and without repeating any. e.g. 23415 is a 5 digit long number containing all digits from 1 to 5 without missing and repeating any digit from 1 to 5.Take a look at few other valid numbers - 624135, 81456273 etc.Here are a few invalid numbers - 139, 7421357 etc.
+// 3. The inverse of a number is defined as the number created by interchanging the face value and index of digits of number.e.g. for 426135 (reading from right to left, 5 is in place 1, 3 is in place 2, 1 is in place 3, 6 is in place 4, 2 is in place 5 and 4 is in place 6), the inverse will be 416253 (reading from right to left, 3 is in place 1, 5 is in place 2,2 is in place 3, 6 is in place 4, 1 is in place 5 and 4 is in place 6) More examples - inverse of 2134 is 1243 and inverse of 24153 is 24153    
+// 4. Take as input number "n", assume that the number will follow constraints.
+// 5. Print it's inverse.
+
+// Input Format
+// "n" where n is any integer, following constraints defined above.
+
+// Sample Input
+// 28346751
+
+// Sample Output
+// 73425681
+
+import java.util.Scanner;
+
+/**
+ * smaple
+ */
+public class smaple {
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int temp = n;
+
+        //finding len of a number
+        int len = 0;
+        while(temp != 0){
+            temp = temp / 10;
+            len++;
+        }
+        
+        int inverse_digit = 0;
+        for(int i = 1; i <= len; i++){
+            int current_no = n % 10;
+            inverse_digit += i * Math.pow(10, current_no - 1);
+            n = n / 10;
+        }
+
+        System.out.println(inverse_digit);
+
+        //will start iterating form 1 to len of a number and keep on multiplying the remainder and adding it to form the final result
+        scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+//Rotate A Number
+
+// 1. You are given two numbers n and k. You are required to rotate n, k times to the right. If k is positive, rotate to the right i.e. remove rightmost digit and make it leftmost. Do the reverse for negative value of k. Also k can have an absolute value larger than number of digits in n.
+// 2. Take as input n and k.
+// 3. Print the rotated number.
+// 4. Note - Assume that the number of rotations will not cause leading 0's in the result. e.g. such an input will not be given
+//    n = 12340056
+//    k = 3
+//    r = 05612340
+
+
+// Input Format
+// "n" where n is any integer.
+// "K" where k is any integer.
+
+// Output Format
+// "r", the rotated number
+
+// Sample Input
+// 562984
+// 2
+
+// Sample Output
+// 845629
+
+
+import java.util.Scanner;
+
+/**
+ * smaple
+ */
+public class smaple {
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt(); // 562984
+        int rotate = scn.nextInt(); //2
+
+        int len = 0;
+        int temp_lenOfNo = n;
+
+        //finding len of a number
+        while (temp_lenOfNo != 0) {
+            temp_lenOfNo /= 10;
+            len++;
+        }
+
+        if(rotate > len){
+            rotate = rotate % len;
+        }
+        
+        if(rotate < 0){
+            rotate = len + rotate;
+        }
+
+        int rem_part = (int) (n % Math.pow(10, rotate));
+
+        int first_part = (int) (n / Math.pow(10, rotate));
+
+        System.out.println(first_part);
+
+        rem_part *= Math.pow(10, len - rotate);
+
+        int final_result = rem_part + first_part;
+
+        System.out.println(final_result);
+
+        // rem_part of a no, add no of digits and add first ahlf of a number
+        scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+//Gcd And Lcm
+
+// 1. You are required to print the Greatest Common Divisor (GCD) of two numbers.
+// 2. You are also required to print the Lowest Common Multiple (LCM) of the same numbers.
+// 3. Take input "num1" and "num2" as the two numbers.
+// 4. Print their GCD and LCM.
+
+// Sample Input
+// 36
+// 24
+// Sample Output
+// 12
+// 72
+
+import java.util.Scanner;
+public class sample {
+
+    public static void main(String[] args) {
+
+        Scanner scn = new Scanner(System.in);
+        int n1 = scn.nextInt();
+        int n2 = scn.nextInt();
+
+        int temp1 = n1;
+        int temp2 = n2;
+    
+        while (n1 % n2 != 0)
+        {
+          int remainder = n1 % n2;
+          n1 = n2;
+          n2 = remainder;
+        }
+        
+        int gcd = n2;
+        int lcm = (temp1 * temp2) / gcd;
+    
+        System.out.println("gcd " + gcd);
+        System.out.println("lcm " + lcm);
+
+        scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+// Prime Factorization Of A Number
+
+// 1. You are required to display the prime factorization of a number.
+//     2. Take as input a number n.
+//     3. Print all its prime factors from smallest to largest.
+
+// Constraints
+// 2 <= n < 10 ^ 9
+
+// Sample Input
+// 1440
+
+// Sample Output
+// 2 2 2 2 2 3 3 5
+
+// Time Complexity: O(sqrt(n))
+
+// Auxiliary Space: O(1)
+
+import java.util.Scanner;
+public class sample {
+
+    public static void main(String[] args) {
+
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+
+        for(int div = 2; div * div <= n; div++){
+           while(n % div == 0){
+               System.out.println(div);
+               n = n / div;
+           }
+        }
+      //What if a factor(prime factor) lies beyond the sqrt(n) range? Ex- 46
+      if (n != 1)
+      {
+        System.out.print(n);
+      }
+      scn.close();
+    }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+
+//The Curious Case Of Benjamin Bulbs
+
+// 1. You are given n number of bulbs. They are all switched off. A weird fluctuation in voltage hits the circuit n times. In the 1st fluctuation all bulbs are toggled, in the 2nd fluctuation every 2nd bulb is toggled, in the 3rd fluctuation every 3rd bulb is toggled and so on. You've to find which bulbs will be switched on after n fluctuations.
+// 2. Take as input a number n, representing the number of bulbs.
+// 3. Print all the bulbs that will be on after the nth fluctuation in voltage.
+
+// Sample Input
+// 6
+
+// Sample Output
+// 1
+// 4
+
+//https://leetcode.com/problems/bulb-switcher/description/
+
+//Every perfect square has odd no of factors
+
+//TC - O(1)
+
+import java.util.Scanner;
+public class sample {
+
+    public static void main(String[] args) {
+
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+    
+        for (int i = 1; i * i <= n; i++)
+        {
+          System.out.println(i * i);
+        }
+      scn.close();
+    }
+}

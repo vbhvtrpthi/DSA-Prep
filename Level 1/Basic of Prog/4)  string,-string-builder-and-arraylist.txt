@@ -1,0 +1,267 @@
+// print_all_palindromic_substrings
+
+//tc - O(n^3) , sc - O(1)
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+
+  public static void solution(String str) {
+    for (int i = 0 ; i < str.length(); i++) {
+      for (int j = i + 1; j <= str.length(); j++) {
+        // i -> starting point of substring, j-> ending point of substring
+        if (isPalindrome(str.substring(i, j))) {
+          System.out.println(str.substring(i, j));
+        }
+      }
+    }
+  }
+
+  public static boolean isPalindrome(String str) {
+    int i = 0, j = str.length() - 1;
+    while (i < j) {
+      if (str.charAt(i) != str.charAt(j)) {
+        return false;
+      }
+      i++;
+      j--;
+    }
+    return true;
+  }
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in); //"abccbc"
+    String str = scn.next();
+    solution(str);
+  }
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//string-compression-official
+
+// First compression -> For "aaabbccdee", the compressed string will be "abcde"
+// Second compression -> For "aaabbccdee", the compressed string will be "a3b2c2de2".
+
+//tc - O(n), sc - O(1)
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+
+  public static String compression1(String s) {
+    String ans = "";
+    for (int i = 0 ; i < s.length(); i++) {
+      while (i < s.length() - 1 && s.charAt(i) == s.charAt(i + 1)) {
+        i++;
+      }
+      ans += s.charAt(i);
+    }
+    return ans;
+  }
+
+  public static String compression2(String s) {
+    String ans = "";
+    for (int i = 0 ; i < s.length(); i++) {
+      int count = 1;
+      while (i < s.length() - 1  && s.charAt(i) == s.charAt(i + 1)) {
+        count++;
+        i++;
+      }
+      ans += s.charAt(i);
+      if (count > 1) {
+        ans += count;
+      }
+    }
+    return ans;
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String s = "aaabbccdee";
+    System.out.println(compression1(s));
+    System.out.println(compression2(s));
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//toggle-case-official
+
+// I/P -> pepCODinG o/p -> PEPcodINg
+
+// In ASCII 'a' - 97, 'A' = 65, 0 = 48
+// 'b' - 'a' = 'B' - 'A'
+// lc = UC - 'A' + 'a'
+
+//tc - O(n)
+//sc- O(n)
+
+import java.util.*;
+
+public class Main {
+
+  public static String toggleCase(String str) {
+    
+    StringBuilder sb = new StringBuilder(str);
+    for (int i = 0; i < sb.length(); i++) {
+      char ch = sb.charAt(i);
+      if (ch >= 'A' && ch <= 'Z') {
+        // convert to lowerCase
+        char lc = (char) (ch - 'A' + 'a');
+        sb.setCharAt(i, lc);
+      } else if (ch >= 'a' && ch <= 'z') {
+        // convert to UpperCase
+        char uc = (char) (ch - 'a' + 'A');
+        sb.setCharAt(i, uc);
+      }
+    }
+    return sb.toString();
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String str = "pepCODinG";
+    System.out.println(toggleCase(str));
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// String With Difference Of Every Two Consecutive Characters - I/P "abecd" o/p "a1b3e-2c1d"
+
+// tc - O(n), sc - O(n)
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+  public static String solution(String str) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(str.charAt(0));
+
+    for (int i = 1; i < str.length(); i++) {
+      char curr = str.charAt(i);
+      char prev = str.charAt(i - 1);
+
+      int gap = curr - prev;
+
+      sb.append(gap);
+      sb.append(curr);
+    }
+    return sb.toString();
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String str = "abecd";
+    System.out.println(solution(str));
+  }
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+// print_all_permutations_of_a_string_iteratively
+
+// "abc" has 6 permutations. A general formula for permutations is n! (factorial of n) where n is the length of the string.
+
+//abc, bac, cab, acb, bca, cba
+
+// NOTE: We are assuming all the characters are unique.
+
+// Time Complexity :O(n! * n) = O(n!)
+// SPACE COMPLEXITY : O(n)
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+
+  public static void solution(String str) {
+    int len = str.length();
+    int total = factorial(len);
+
+    for (int number = 0; number < total; number++) {
+      StringBuilder sb = new StringBuilder(str);
+      int temp = number;
+
+      for (int divisor = len; divisor >= 1; divisor--) {
+        int q = temp / divisor;
+        int r = temp % divisor;
+
+        System.out.print(sb.charAt(r));
+        sb.deleteCharAt(r);
+        temp = q;
+      }
+      System.out.println();
+    }
+  }
+
+  public static int factorial(int n) {
+    int fact = 1;
+    for (int i = 2; i <= n; i++) {
+      fact *= i;
+    }
+    return fact;
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String str = "abc";
+
+    solution(str);
+    scn.close();
+  }
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------
+
+//remove-primes-official
+
+// I/p - 4
+// 3 12 13 15
+
+// o/p - [12, 15]
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+
+  public static void solution(ArrayList<Integer> al) {
+    for (int i = al.size(); i >= 0; i--) {
+      if (isPrime(al.get(i))) {
+        al.remove(i);
+      }
+    }
+  }
+
+  public static boolean isPrime(int n) {
+    for (int i = 2; i * i <= n; i++) {
+      if (n % i == 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    ArrayList<Integer> al = new ArrayList<>();
+    for (int i = 0; i < n; i++) {
+      al.add(scn.nextInt());
+    }
+    solution(al);
+    System.out.println(al);
+  }
+
+}
