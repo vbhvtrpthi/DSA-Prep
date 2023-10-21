@@ -1,0 +1,63 @@
+//get_subsequence
+
+// Sample Input
+// abc
+// Sample Output
+// [, c, b, bc, a, ac, ab, abc]
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next(); // "a"
+        ArrayList<String> res = getss(str);
+        System.out.println(res);
+    }
+
+    public static ArrayList<String> getss(String str) {
+
+        if (str.length() == 0) {
+            ArrayList<String> bres = new ArrayList<>();
+            bres.add("");
+            return bres;
+        }
+
+        char ch = str.charAt(0);
+        String ros = str.substring(1);
+
+        ArrayList<String> rres = getss(ros);
+        ArrayList<String> mres = new ArrayList<>();
+
+        for (String val : rres) {
+            mres.add("" + val);
+        }
+        for (String val : rres) {
+            mres.add(ch + val);
+        }
+        return mres;
+    }
+}
+
+// Time Complexity :
+// O(n)
+
+// This time complexity is linear because a recursion call is made along with
+// using "for loop".
+
+// SPACE COMPLEXITY :
+// O(1)
+
+// As no extra space is required, therefore space complexity is constant.
+// However, if we include the space used in the recursive stack then the space
+// complexity is O(n).
+
+//RQ - https://leetcode.com/problems/is-subsequence/ (2 pointer & Recursion)
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
