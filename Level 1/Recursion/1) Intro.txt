@@ -1,5 +1,6 @@
 // Sample Input
 // 5
+
 // Sample Output
 // 5
 // 4
@@ -43,6 +44,7 @@ public class Main {
 
 // Sample Input
 // 5
+
 // Sample Output
 // 1
 // 2
@@ -84,6 +86,7 @@ public class Main {
 
 // Sample Input
 // 3
+
 // Sample Output
 // 3
 // 2
@@ -187,7 +190,8 @@ public class Main {
 // Time Complexity :
 // O(n)
 
-// Since you are recursively calling for a subproblem with n-1 from n, hence n + 1 recursive calls will be made (+ 1 when it hits the base case n = 0). You can also count the number of recursive calls in the call stack. So the time complexity turns out to be O(n) (which is independent of the value of x).
+// Since you are recursively calling for a subproblem with n-1 from n, hence n + 1 recursive calls will be made (+ 1 when it hits the base case n = 0). 
+// You can also count the number of recursive calls in the call stack. So the time complexity turns out to be O(n) (which is independent of the value of x).
 
 // SPACE COMPLEXITY :
 // O(1)
@@ -270,29 +274,36 @@ public class Main {
 
 // https://www.geeksforgeeks.org/c-program-for-tower-of-hanoi/
 
+// Tower of Hanoi is a mathematical puzzle where we have three rods (A, B, and C) and N disks.
+// Initially, all the disks are stacked in decreasing value of diameter i.e., the smallest disk is placed on the top and they are on rod A.
+// The objective of the puzzle is to move the entire stack to another rod (here considered C), obeying the following simple rules: 
+
+// Only one disk can be moved at a time.
+// Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack i.e.
+// a disk can only be moved if it is the uppermost disk on a stack.
+// No disk may be placed on top of a smaller disk.
 
 class GFG {
-  static void towerOfHanoi(int n, char from_rod,
-          char to_rod, char aux_rod) {
-      if (n == 0) {
-          return;
-      }
-      towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);
-      System.out.println("Move disk " + n + " from rod "
-              + from_rod + " to rod "
-              + to_rod);
-      towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);
+  static void towerOfHanoi(int n, char from_rod, char to_rod, char aux_rod) {
+    if (n == 0) {
+      return;
+    }
+    towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);
+    System.out.println("Move disk " + n + " from rod "
+        + from_rod + " to rod "
+        + to_rod);
+    towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);
   }
 
   // Driver code
   public static void main(String args[]) {
-      int N = 3;
+    int N = 3;
 
-      // A, B and C are names of rods
-      towerOfHanoi(N, 'A', 'C', 'B');
+    // A, B and C are names of rods
+    towerOfHanoi(N, 'A', 'C', 'B');
   }
 }
 
-// Time complexity: O(2N), There are two possibilities for every disk. Therefore, 2 * 2 * 2 * . . . * 2(N times) is 2N
+// Time complexity: O(2**N), There are two possibilities for every disk. Therefore, 2 * 2 * 2 * . . . * 2(N times) is 2N
 // Auxiliary Space: O(N), Function call stack space
 

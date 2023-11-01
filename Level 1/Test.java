@@ -1,44 +1,42 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Test {
 
-  public static void main(String[] args) throws Exception {
-    Scanner scn = new Scanner(System.in);
-    String str = scn.next(); //"a"
-    ArrayList<String> res = getss(str);
-    System.out.println(res);
-  }
-
-  public static ArrayList<String> getss(String str) {
-
-    if (str.length() == 0) {
-      ArrayList<String> bres = new ArrayList<>();
-      bres.add("");
-      return bres;
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = "12103";
+        scn.close();
+        printEncoding(str, "");
     }
-    char ch = str.charAt(0);
-    String ros = str.substring(1);
 
-    ArrayList<String> rres = getss(ros);
-    ArrayList<String> mres = new ArrayList<>();
-    for (String val : rres) {
-      mres.add("" + val);
+    public static void printEncoding(String str, String ansf) {
+
+        if (str.length() == 0) {
+            System.out.print(ansf + " ");
+            return;
+        }else if(str.length() == 1){
+            String ch0 = str.substring(0, 1);
+            String roq0 = str.substring(1);
+            String code0 = (char)('a' +
+                                  (Integer.parseInt(ch0) - 1)) + "";
+            printEncoding(roq0, str + code0);
+        }
+         else {
+            char ch0 = str.charAt(0);
+            if (ch0 == '0') {
+                return;
+            }
+            String roq0 = str.substring(1);
+            String codeO = ('a' + (ch0 - '0') - 1) + "";
+            printEncoding(roq0, ansf + codeO);
+
+            String ch01 = str.substring(0, 2);
+            String roq01 = str.substring(2);
+            String codeO1 = ('a' + Integer.parseInt(ch01) - 1) + "";
+            if (Integer.parseInt(codeO1) <= 26) {
+                printEncoding(roq01, ansf + codeO1);
+            }
+        }
+
     }
-    for (String val : rres) {
-      mres.add(ch + val);
-    }
-    return mres;
-  }
 }
-
-//Time Complexity :
-// O(n)
-
-// This time complexity is linear because a recursion call is made along with using "for loop".
-
-// SPACE COMPLEXITY :
-// O(1)
-
-// As no extra space is required, therefore space complexity is constant. However, if we include the space used in the recursive stack then the space complexity is O(n).

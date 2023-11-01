@@ -94,10 +94,11 @@ public class Main {
 
 // I/P -> pepCODinG o/p -> PEPcodINg
 
-// In ASCII 'a' - 97, 'A' = 65, 0 = 48
+// In ASCII 'a' - 97, 'A' = 65, '0' = 48
 // 'b' - 'a' = 'B' - 'A'
 // lc = UC - 'A' + 'a'
 
+// '6' != 6 -> '6' - '0' = 6
 //tc - O(n)
 //sc- O(n)
 
