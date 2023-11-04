@@ -4,39 +4,27 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
-        String str = "12103";
+        int[][] arr = new int[5][5];
+        printKT(arr, 2, 0, 1);
         scn.close();
-        printEncoding(str, "");
     }
 
-    public static void printEncoding(String str, String ansf) {
+    public static void displayArr(int[][] arr) {
+        
+        System.out.println(Arrays.deepToString(arr));
+    }
 
-        if (str.length() == 0) {
-            System.out.print(ansf + " ");
+    public static void printKT(int[][] arr, int sr, int sc, int cval) {
+        if (sr < 0 || sc < 0 || sr >= arr.length || sc >= arr[0].length || cval != 0) {
             return;
-        }else if(str.length() == 1){
-            String ch0 = str.substring(0, 1);
-            String roq0 = str.substring(1);
-            String code0 = (char)('a' +
-                                  (Integer.parseInt(ch0) - 1)) + "";
-            printEncoding(roq0, str + code0);
         }
-         else {
-            char ch0 = str.charAt(0);
-            if (ch0 == '0') {
-                return;
-            }
-            String roq0 = str.substring(1);
-            String codeO = ('a' + (ch0 - '0') - 1) + "";
-            printEncoding(roq0, ansf + codeO);
+        if (cval == arr.length * arr[0].length) {
+            displayArr(arr);
+        }
 
-            String ch01 = str.substring(0, 2);
-            String roq01 = str.substring(2);
-            String codeO1 = ('a' + Integer.parseInt(ch01) - 1) + "";
-            if (Integer.parseInt(codeO1) <= 26) {
-                printEncoding(roq01, ansf + codeO1);
-            }
-        }
+        arr[sr][sc] = cval;
+        printKT(arr, sr - 2, sc + 1, cval + 1);
+        arr[sr][sc] = 0;
 
     }
 }

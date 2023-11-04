@@ -1,0 +1,264 @@
+// flood-fill-official
+// You are given n*m numbers, representing elements of 2d array a. The numbers can be 1 or 0 only.
+//  You are standing in the top-left corner and have to reach the bottom-right corner. 
+// Only four moves are allowed 't' (1-step up), 'l' (1-step left), 'd' (1-step down) 'r' (1-step right).
+// You can only move to cells which have 0 value in them. You can't move out of the boundaries or in the cells which have value 1 in them (1 means obstacle)
+
+// I/p 
+// 0 0 0
+// 1 0 1
+// 0 0 0
+
+// O/P
+// rddr
+
+
+
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // Scanner scn = new Scanner(System.in);
+        int n = 3;
+        int m = 3;
+        // int[][] arr = new int[n][m];
+        // for (int i = 0; i < n; i++) {
+        // for (int j = 0; j < m; j++) {
+        // arr[i][j] = scn.nextInt();
+        // }
+        // }
+        int[][] arr = { { 0, 0, 0 }, { 1, 0, 1 }, { 0, 0, 0 } };
+        boolean[][] visited = new boolean[n][m];
+        floodfill(arr, 0, 0, "", visited);
+    }
+
+    public static void floodfill(int[][] maze, int sr, int sc, String asf, boolean[][] visited) {
+        if (sr < 0 || sc < 0 || sr == maze.length || sc == maze[0].length || maze[sr][sc] == 1
+                || visited[sr][sc] == true) {
+            return;
+        }
+        if (sr == maze.length - 1 && sc == maze[0].length - 1) {
+            System.out.println(asf);
+            return;
+        }
+        visited[sr][sc] = true;
+        floodfill(maze, sr - 1, sc, asf + "t", visited);
+        floodfill(maze, sr, sc - 1, asf + "l", visited);
+        floodfill(maze, sr + 1, sc, asf + "d", visited);
+        floodfill(maze, sr, sc + 1, asf + "r", visited);
+        visited[sr][sc] = false;
+
+    }
+}
+
+// Time Complexity :
+// O(4**n2) which can simply be written as O(n**2).
+
+// This is because each cell of the matrix is processed at most 4 times.
+// For Example, a particular cell can be called by its top, down, left or right cell.
+
+// SPACE COMPLEXITY :
+// O(n**2)
+
+// Since an extra 2D array is used for storing "visited" cells therefore the space complexity is quadratic.
+
+//RQ - https://leetcode.com/problems/flood-fill/description/
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// target-sum-subsets-official
+
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        // int n = scn.nextInt();
+        int[] arr = { 10, 20, 30, 40, 50 };
+        int tar = 60;
+        printTargetSumSubsets(arr, 0, "", 0, tar); // 1
+        scn.close();
+
+    }
+
+    // set is the subset
+    // sos is sum of subset
+    // tar is target
+    public static void printTargetSumSubsets(int[] arr, int idx, String set, int sos, int tar) {
+
+        if (idx == arr.length) { // 2
+            if (sos == tar) {
+                System.out.println(set + ".");
+            }
+            return;
+        }
+
+        printTargetSumSubsets(arr, idx + 1, set + arr[idx] + ", ", sos + arr[idx], tar); // 3
+        printTargetSumSubsets(arr, idx + 1, set, sos, tar); // 4
+
+    }
+
+}
+// O(2**n)
+
+// This time complexity is exponential because for each state, 2 recursion calls are made.
+
+// SPACE COMPLEXITY :
+// O(1)
+
+// As no extra space is required, therefore space complexity is constant.
+// However, if we include the space used in the recursive stack then the space complexity is O(n).
+
+//RQ - https://leetcode.com/problems/target-sum/description
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+//N Queens
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int[][] chess = new int[4][4];
+        printNQueens(chess, "", 0);
+        scn.close();
+    }
+
+    public static boolean isItaSafePlaceForQueen(int[][] chess, int row, int col) {
+        // checking vertically
+        for (int i = row - 1, j = col; i >= 0; i--) {
+            if (chess[i][j] == 1) {
+                return false;
+            }
+        }
+
+        // checking left diagonally
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (chess[i][j] == 1) {
+                return false;
+            }
+        }
+
+        // checking right diagonally
+        for (int i = row - 1, j = col + 1; i >= 0 && j < chess[0].length; i--, j++) {
+            if (chess[i][j] == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void printNQueens(int[][] chess, String ansf, int row) {
+        if (row == chess.length) {
+            System.out.println(ansf);
+            return;
+        }
+
+        for (int col = 0; col < chess[0].length; col++) {
+            if (isItaSafePlaceForQueen(chess, row, col)) {
+                chess[row][col] = 1;
+                printNQueens(chess, ansf + row + col + "-", row + 1);
+                chess[row][col] = 0;
+            }
+        }
+    }
+}
+// Time Complexity :
+// This code is exponential in nature, and it's time complexity will turn out to
+// be O(n!).
+// It is better than the brute force/naive approach which has O(n^n) time
+// complexity.
+
+// Mathematical Proof of Time Complexity
+// Let us assume that the run-time for nrows is T(n). Hence, for n-1 rows, the
+// run-time will be T(n-1).
+
+// Since, we are making at max n calls, (for n columns) to the recursive
+// function with n-1 rows left, hence:
+
+// T(n) = n * T(n-1) + O(Checking if the configuration is valid)
+
+// For the first row {T(n)}, we will have 0 previous rows to check, for the 2nd
+// row, we will have 1 previous row to check and so on, until the last row for
+// which we need to check for (n-1) previous rows.
+
+// SPACE COMPLEXITY :
+
+// The maximum number of recursive calls can be equal to the number of rows.
+// Hence the recursion stack call will take atmax O(n) space.
+
+// However, we are not using any extra data structure, hence O(1) auxiliary
+// space.
+
+// Follow Up: Solution can also be solved using Branch & Bound technique. Also,
+// this approach can be optimized using Bit Manipulation. We will look at these
+// approaches later in the upcoming sections.
+
+
+//RQ1 - https://leetcode.com/problems/n-queens/description/
+//RQ2 - https://leetcode.com/problems/n-queens-ii/description/
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// knights-tour-official
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // int n = Integer.parseInt(br.readLine());
+        // int r = Integer.parseInt(br.readLine());
+        // int c = Integer.parseInt(br.readLine());
+
+        int[][] chess = new int[5][5];
+        printKnightsTour(chess, 2, 0, 1);
+    }
+
+    public static void printKnightsTour(int[][] chess, int r, int c, int upcomingMove) {
+        if (r < 0 || c < 0 || r >= chess.length || c >= chess.length || chess[r][c] != 0) {
+            return;
+        } else if (upcomingMove == chess.length * chess.length) {
+            chess[r][c] = upcomingMove;
+            displayBoard(chess);
+            chess[r][c] = 0;
+            return;
+        }
+
+        chess[r][c] = upcomingMove;
+        printKnightsTour(chess, r - 2, c + 1, upcomingMove + 1);
+        printKnightsTour(chess, r - 1, c + 2, upcomingMove + 1);
+        printKnightsTour(chess, r + 1, c + 2, upcomingMove + 1);
+        printKnightsTour(chess, r + 2, c + 1, upcomingMove + 1);
+        printKnightsTour(chess, r + 2, c - 1, upcomingMove + 1);
+        printKnightsTour(chess, r + 1, c - 2, upcomingMove + 1);
+        printKnightsTour(chess, r - 1, c - 2, upcomingMove + 1);
+        printKnightsTour(chess, r - 2, c - 1, upcomingMove + 1);
+        chess[r][c] = 0;
+    }
+
+    public static void displayBoard(int[][] chess) {
+        for (int i = 0; i < chess.length; i++) {
+            for (int j = 0; j < chess[0].length; j++) {
+                System.out.print(chess[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+    }
+}
+
+//RQ1 - https://leetcode.com/problems/check-knight-tour-configuration/description/
+
+//Time Complexity :
+// For each cell, we have 8 decisions to choose from for each of the n2 cell, the time complexity will be O(8(n^2)).
+
+//SPACE COMPLEXITY :
+// The maximum number of recursive calls/depth of the recursion tree can be equal to the number of cells. Hence the recursion stack call will take atmax O(n2) space.
+
+// However, we are not using any extra data structure, hence the solution is said to have O(1) auxiliary space.
+
