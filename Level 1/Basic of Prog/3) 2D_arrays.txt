@@ -252,7 +252,7 @@ public static void main(String[] args)
 
 //Transpose of a matrix - row ↔️ columns
 
-//https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/ - Time complexity: O(N2), Auxiliary Space: O(1)
+//https://www.geeksforgeeks.org/program-to-find-transpose-of-a-matrix/ - Time complexity: O(N**2), Auxiliary Space: O(1)
 //RQ - 
 
 // Java Program to find
@@ -472,6 +472,7 @@ public class Main {
 
 //https://www.pepcoding.com/resources/online-java-foundation/2d-arrays/diagonal-traversal-official/ojquestion tc - O(n^2) , sc- O(1)
 //RA - https://www.geeksforgeeks.org/program-print-lower-triangular-upper-triangular-matrix-array/
+//2D_arrays_diagonal-traversal-official.jpg
 
 import java.util.Scanner;
 
@@ -501,6 +502,28 @@ public class Main {
 
 }
 
+// Analysis
+// Calculating the time complexity, in this case, is pretty simple.
+
+// Time Complexity:
+// When gap = 0, the inner loop run"s n times
+
+// When gap = 1, the inner loop run"s n-1 times
+
+// When gap = 2, the inner loop run"s n-2 times
+
+// .
+// .
+// .
+// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+// So considering all the gaps the inner loop will be running:
+
+// n + (n-1) + (n-2) + (n-3) + ... times = n*(n+1)/2 which is of the order O(n2).
+
+// SPACE COMPLEXITY:
+// We are not using any auxiliary space and hence the space complexity is O(1).
+
 //-------------------------------------------------------------------------------------------------------------------
 
 //https://www.geeksforgeeks.org/saddle-point-matrix/ 
@@ -508,7 +531,9 @@ public class Main {
 //Time Complexity: O(n*n)
 // Auxiliary Space: O(1)
 
-//Can there be more than one Saddle Points in a Matrix? No, prove it by contradiction method
+// Given a matrix of n x n size
+// Minimum element in its row and the maximum in its column. 
+//Can there be more than one Saddle Points in a Matrix? No, prove it by contradiction method //3) 2D_arrays_saddle_price_2.png
 
 public class Main {
 

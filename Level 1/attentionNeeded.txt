@@ -1,0 +1,11 @@
+//Target Base pay - 25 lakh by 31st Dec
+recursion 4 -> print encoding
+Time complexity
+ -> Get Maze Path with Jumps 
+ -> N- Queens
+
+ Questions
+ -> sliding window maximum - i and j relation
+
+//  Solution TC - Sanket recursion series 
+

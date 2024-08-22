@@ -1,4 +1,4 @@
-//get_subsequence
+//get_subsequence / subset
 
 // Sample Input
 // abc
@@ -61,7 +61,7 @@ public class Main {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 //get Key Pad Combination
-//I/p - 573
+//I/p - 578
 // o.p [mtv, mtw, mtx, muv, muw, mux, ntv, ntw, ntx, nuv, nuw, nux, otv, otw, otx, ouv, ouw, oux]
 
 import java.util.*;
@@ -88,9 +88,9 @@ public class Main {
         }
 
         char ch = str.charAt(0); // 2
-        String ros = str.substring(1); // 3
-        ArrayList<String> rres = getKPC(ros); // 4
-        ArrayList<String> mres = new ArrayList<>();
+        String ros = str.substring(1); // 3 //ros -> rest of the string
+        ArrayList<String> rres = getKPC(ros); // 4 // rres- recursion result
+        ArrayList<String> mres = new ArrayList<>(); //mres - my recursion result
 
         String codeforch = codes[ch - '0']; // 5
 
@@ -112,7 +112,8 @@ public class Main {
 // SPACE COMPLEXITY :
 // O(1)
 
-// As no extra space is required, therefore space complexity is constant. However, if we include the space used in the recursive stack then the space complexity is O(n).
+// As no extra space is required, therefore space complexity is constant. 
+//However, if we include the space used in the recursive stack then the space complexity is O(n).
 
 //RQ - https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
 

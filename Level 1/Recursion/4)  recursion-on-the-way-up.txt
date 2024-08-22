@@ -1,3 +1,4 @@
+// Include/exclude style
 //print-subsequence-official
 
 // Sample Input
@@ -48,12 +49,12 @@ public class Test {
 
 //PRINT KPC
 
-//I/p - 573
+//I/p - 578
 // o.p [mtv, mtw, mtx, muv, muw, mux, ntv, ntw, ntx, nuv, nuw, nux, otv, otw, otx, ouv, ouw, oux]
 
 import java.util.*;
 
-public class Test {
+public class Main {
 
     static String[] codes = { ".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx",
             "yz"
@@ -129,7 +130,8 @@ public class Main {
 
 // O(3^n)
 
-// The time complexity of the above solution is exponential. From each state, 3 recursive functions are called. So time complexity is O(3^n).
+// The time complexity of the above solution is exponential.
+// From each state, 3 recursive functions are called. So time complexity is O(3^n).
 
 // SPACE COMPLEXITY :
 // O(1)
@@ -272,7 +274,7 @@ public class Test {
     }
 }
 
-// for complecity see pepcoding
+// for complexity analysis see pepcoding article
 // tc O(n!)
 // sc O(1)
 
@@ -288,6 +290,7 @@ public class Test {
 // ..
 // 25 -> y
 // 26 -> z
+
 // 3. Complete the body of printEncodings function - without changing signature - to calculate and print all encodings of str.
 // Use the input-output below to get more understanding on what is required
 // 123 -> abc, aw, lc
@@ -313,9 +316,12 @@ public class Main {
 
     public static void printEncodings(String ques, String ans) {
         if (ques.length() == 0) {
+
             System.out.println(ans);
             return;
+
         } else if (ques.length() == 1) {
+            
             if (ques.charAt(0) == '0') {
                 return;
             } else {
@@ -329,6 +335,7 @@ public class Main {
             if (ques.charAt(0) == '0') {
                 return;
             } else {
+
                 String ch0 = ques.substring(0, 1);
                 String roq0 = ques.substring(1);
                 String code0 = (char) ('a' + (Integer.parseInt(ch0) - 1)) + "";
@@ -341,6 +348,7 @@ public class Main {
                 if (Integer.parseInt(ch01) <= 26) {
                     printEncodings(roq01, ans + code01);
                 }
+
             }
         }
     }
@@ -350,4 +358,5 @@ public class Main {
 // We can make atmax 2 decisions (1-length number or 2-length number), hence the time complexity will be O(2**n) (exponential in nature).
 
 // SPACE COMPLEXITY :
-// If we consider the space taken by the recursion call stack, then space complexity will be O(n) as the maximum depth of the recursion stack at any point can be equal to the length of the numeric string.
+// If we consider the space taken by the recursion call stack, then space complexity will be O(n) as 
+// the maximum depth of the recursion stack at any point can be equal to the length of the numeric string.

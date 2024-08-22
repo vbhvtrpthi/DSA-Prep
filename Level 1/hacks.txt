@@ -1,0 +1,4 @@
+//Target Base pay - 25 lakh by 31st Dec
+Arrays.stream(ans).forEach(System.out::print); //printing 1d array in a line
+
+// Next session -> revise previous stack question, start with infix evaluation

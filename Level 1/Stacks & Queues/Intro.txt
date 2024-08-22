@@ -1,0 +1,355 @@
+// Definition:
+
+// Stack is a linear data structure which follows a FILO (First In Last Out) order (or Last In First Out (LIFO)) 
+// for doing various operations.
+
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) throws java.lang.Exception {
+        Stack<Integer> st = new Stack<>();
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        st.push(40);
+        System.out.println(st + " -> " + st.peek() + " " + st.size()); // [10, 20, 30, 40] -> 40 4
+        System.out.println("Is Stack Empty: " + st.empty()); // Is Stack Empty: false
+        st.pop();
+        st.pop();
+        st.pop();
+        System.out.println(st + "->" + st.peek() + " " + st.size()); // [10]->10 1
+        st.pop();
+        System.out.println(st + "->" + st.peek() + " " + st.size()); // []-> 0
+        System.out.println("Is Stack Empty: " + st.empty()); // Is Stack Empty: true
+    }
+}
+// Applications
+
+// Recursive Call Stack & Function Call Stack
+// Check whether an arithmetic expression containing parentheses is valid or not.
+// Infix to Postfix /Prefix conversion
+// Redo-undo features in microsoft word and text editors.
+// Tree - Traversals (Preorder, Inorder & Postorder)
+// Graph Algorithms like DFS (Depth-First Search), topological sorting, connected components, etc.
+// Memory allocation mechanisms in Operating System
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Duplicate_brackets
+
+// 1. You are given a string exp representing an expression.
+// 2. Assume that the expression is balanced  i.e. the opening and closing brackets match with each other.
+// 3. But, some of the pair of brackets maybe extra/needless. 
+// 4. You are required to print true if you detect extra brackets and false otherwise.
+
+// e.g.'
+// ((a + b) + (c + d)) -> false
+// (a + b) + ((c + d)) -> true
+
+import java.io.*;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // String str = br.readLine();
+        String str = "(a + b) + ((c + d))";
+        
+        Stack<Character> st = new Stack<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch == ')') {
+                if (st.peek() == '(') {
+                    System.out.println(true);
+                    return;
+                } else {
+                    while (st.peek() != '(') {
+                        st.pop();
+                    }
+                    st.pop();
+                }
+            } else {
+                st.push(ch);
+            }
+        }
+
+        System.out.println(false);
+    }
+}
+//tc
+// Hence, although there is a nested while loop inside a for loop, the number of characters that will get popped out of the stack 
+// are not equal to the size of string in each iteration.
+
+// We will pop n characters from the stack at maximum during the entire for loop and not single iteration of for loop.
+// Thus, we are pushing and popping each character only once, thus the time complexity will be O(2*n) = O(n) only.
+
+//sc
+// We are using the stack data structure, which can take space equal to the number of characters in the expression string,
+// i.e. equal to the size of the string, in the worst case, hence O(n) auxiliary space is required.
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+//Balanced brackets
+// 1. You are given a string exp representing an expression.
+// 2. You are required to check if the expression is balanced i.e. closing brackets and opening brackets match up well.
+
+// e.g.
+// [(a + b) + {(c + d) * (e / f)}] -> true
+// [(a + b) + {(c + d) * (e / f)]} -> false
+// [(a + b) + {(c + d) * (e / f)} -> false
+// ([(a + b) + {(c + d) * (e / f)}] -> false
+
+// import java.io.*;
+
+//Cases - "())" , "(()"
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        // Scanner scn = new Scanner(System.in);
+        String str = "[(a + b) + {(c + d) * (e / f)}]";
+        Stack<Character> st = new Stack<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (ch == '(' || ch == '[' || ch == '{') {
+
+                st.push(ch);
+
+            } else if (ch == ')') {
+
+                boolean val = handleClosing(st, '(');
+                if (val == false) {
+                    System.out.println(val);
+                    return;
+                }
+
+            } else if (ch == ']') {
+
+                boolean val = handleClosing(st, '[');
+                if (val == false) {
+                    System.out.println(val);
+                    return;
+                }
+
+            } else if (ch == '}') {
+
+                boolean val = handleClosing(st, '{');
+                if (val == false) {
+                    System.out.println(val);
+                    return;
+                }
+
+            } else {
+
+            }
+        }
+        if (st.size() == 0) {
+            System.out.println(true);
+        } else {
+            System.out.println(false);
+        }
+
+    }
+
+    public static boolean handleClosing(Stack<Character> st, char corresopch) {
+        if (st.size() == 0) {
+            return false;
+        } else if (st.peek() != corresopch) {
+            return false;
+        } else {
+            st.pop();
+            return true;
+        }
+    }
+
+}
+
+// Time Complexity:
+// The time complexity of the above algorithm is O(n) as we are traversing a string of length n once. 
+// What about the push and pop operations then? Come on, you already know they take O(1) time, right? 
+// So, the only thing affecting the time complexity is the traversing of the string.
+
+// Space Complexity:
+// The space complexity is O(n). Why? We are continuously popping and pushing the elements from the stack.
+//  So why O(n)? Well, let me ask you a question. What can be the maximum size of the stack? 
+//  Yes, it can be equal to the length of the string if we can input the string with all opening brackets. 
+//  It is after the string gets completely scanned that we will realize that the brackets are not balanced. 
+//  Otherwise, we keep on pushing all the opening brackets into the stack.
+
+//RQ - https://leetcode.com/problems/valid-parentheses/description/
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+// Next Greater Element To The Right
+
+// e.g.
+// for the array [2 5 9 3 1 12 6 8 7]
+
+// Next greater for 2 is 5
+// Next greater for 5 is 9
+// Next greater for 9 is 12
+// Next greater for 3 is 12
+// Next greater for 1 is 12
+// Next greater for 12 is -1
+// Next greater for 6 is 8
+// Next greater for 8 is -1
+// Next greater for 7 is -1
+
+//Algo
+// -  (pop karayga jb tk ussey bada element ni mil jata in stack)
+// ans (print ans)
+// + (push in stack)
+
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int[] arr = { 2, 5, 9, 3, 1, 12, 6, 6, 0, 1 };
+        int[] nger = new int[arr.length];
+        Stack<Integer> st = new Stack<>();
+
+        st.push(arr[arr.length - 1]);
+        nger[arr.length - 1] = -1;
+
+        for (int i = arr.length - 2; i >= 0; i--) {
+
+            while (st.size() > 0 && arr[i] >= st.peek()) {
+                st.pop();
+            }
+            if (st.size() == 0) {
+                nger[i] = -1;
+            } else {
+                nger[i] = st.peek();
+            }
+            st.push(arr[i]);
+        }
+
+        scn.close();
+        for (int val : nger) {
+            System.out.print(val + " ");
+        }
+
+    }
+
+}
+
+//Time Complexity :
+// At first it may seem like a while loop is running inside for loop, making the time complexity O(n^2).
+//  But this is not the case, the time complexity of this is O(n) only.
+
+// Because the while loop inside for loop doesn't run n times.
+//  As we are pushing and popping each element of arr[] only once inside the stack.
+
+
+// SPACE COMPLEXITY :
+// An array of n size is used, making the space complexity O(n).
+
+
+//Alternative Solution
+//Iterating from right to left
+
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        // Scanner scn = new Scanner(System.in);
+        int[] arr = { 2, 5, 9, 3, 1, 12, 6, 8, 7 };
+        int[] nger = new int[arr.length];
+        Stack<Integer> st = new Stack<>();
+
+        // storing the index
+        for (int i = 0; i < arr.length; i++) {
+            while (st.size() > 0 && arr[i] >= arr[st.peek()]) {
+                int pos = st.peek();
+                nger[pos] = arr[i];
+                st.pop();
+            }
+            st.push(i);
+        }
+        while (st.size() > 0) {
+            nger[st.pop()] = -1;
+        }
+
+        for (int val : nger) {
+            System.out.print(val + " ");
+        }
+    }
+}
+
+//tc - O(n) sc 0(n)
+
+//QONSMLN - NGE on the left, NSE on the right/left
+//PQ- https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1 , case - popping equal elements too
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+//Stock Span
+
+//Stock span is defined as the number of days passed between the current day and the first day 
+//before today when the price was higher than today.
+
+//Algo
+// Current day span -  current day idx - NGEL
+
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int[] arr = { 2, 5, 9, 3, 1, 12, 6, 8, 7 };
+        int[] span = new int[arr.length];
+
+        Stack<Integer> st = new Stack<>();
+        st.push(0);
+        span[0] = 1;
+
+        for (int i = 1; i < arr.length; i++) {
+            while (st.size() > 0 && arr[i] >= arr[st.peek()]) {
+                st.pop();
+            }
+            if (st.size() == 0) {
+                span[i] = i + 1;
+            } else {
+                span[i] = i - st.peek();
+            }
+
+            st.push(i);
+
+        }
+
+        for (int val : span) {
+            System.out.println(val);
+        }
+        scn.close();
+
+    }
+}
+
+// Time Complexity:
+
+// You will have to understand why it is O(n). Let's look at the life cycle of just one element. 
+// Every element will be pushed into the stack once. Also, there is just one time that the element will be popped. 
+// Because once popped it is lost from the stack. So every element has two events associated with itself. 
+// One push and just one pop. Both are constant-time operations. When we do the same for n elements we will have n*O(1) i.e O(n) operations. 
+// Hence the time complexity is O(n).
+
+// Space Complexity:
+
+// We are using an auxiliary stack which in the worst case will be fully filled with n numbers. 
+// Can you tell me what that is? Yes, if the numbers are in increasing order.
+//  Then there will be nothing to pop, only elements will be pushed.
+//  Also, there is an array of the span where we had to store the span results.Hence overall space complexity is O(n).
+
+//RQ - https://leetcode.com/problems/online-stock-span/description/ (view img, diff way of solving)

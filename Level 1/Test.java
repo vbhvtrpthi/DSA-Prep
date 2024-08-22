@@ -1,30 +1,28 @@
-import java.util.*;
-
 public class Test {
+  public static void main(String[] args) {
+      int[] arr = new int[] { 1, 5, 10, 15, 22, 33,33,33,40, 42, 55, 66 };
+      int x = 33;
+      int lo = 0;
+      int hi = arr.length - 1;
 
-    public static void main(String[] args) throws Exception {
-        Scanner scn = new Scanner(System.in);
-        int[][] arr = new int[5][5];
-        printKT(arr, 2, 0, 1);
-        scn.close();
-    }
+      int floor = -1;
+      int ceil = -1;
 
-    public static void displayArr(int[][] arr) {
-        
-        System.out.println(Arrays.deepToString(arr));
-    }
+      while (lo <= hi) {
+          int mid = lo + (hi - lo) / 2;
+          if (x > arr[mid]) {
+              lo = mid + 1;
+              floor = arr[mid];
 
-    public static void printKT(int[][] arr, int sr, int sc, int cval) {
-        if (sr < 0 || sc < 0 || sr >= arr.length || sc >= arr[0].length || cval != 0) {
-            return;
-        }
-        if (cval == arr.length * arr[0].length) {
-            displayArr(arr);
-        }
+          } else if (x < arr[mid]) {
+              hi = mid - 1;
+              ceil = arr[mid];
+          } else {
+              floor = ceil = arr[mid];
+              break;
+          }
 
-        arr[sr][sc] = cval;
-        printKT(arr, sr - 2, sc + 1, cval + 1);
-        arr[sr][sc] = 0;
-
-    }
+      }
+   System.out.println("Floor value "+ floor + " | ceil value " + ceil);
+  }
 }
