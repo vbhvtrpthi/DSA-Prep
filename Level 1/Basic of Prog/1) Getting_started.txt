@@ -63,6 +63,17 @@ public class  isNumberPrime {
 
 //-------------------------------------------------------------------------------------------------------------------
 
+
+"What power do I raise a base to, to get a certain number?"
+
+The Relationship:
+If b^x = n, then log_b(n) = x
+Translation: "b to the power of x equals n" means "log base b of n equals x"
+
+Question: log₁₀(100) = ?
+Answer: What power makes 10 equal 100? It's 2! So log₁₀(100) = 2
+
+
 //Count Digits In A Number
 
 //Constraints 1 <= n < 10^9
@@ -72,7 +83,7 @@ public class  isNumberPrime {
 //Sample Output
 //8
 
-//tc - O(n), sc- O(1)
+//tc - O(log n), sc- O(1)
 
 import java.util.*;
 
@@ -111,6 +122,9 @@ public class Main {
 // 3
 // 8
 // 3
+
+
+// TC - O(log n)
 
 import java.util.*;
 
